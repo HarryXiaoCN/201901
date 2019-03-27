@@ -1,0 +1,423 @@
+VERSION 5.00
+Begin VB.Form Ui 
+   AutoRedraw      =   -1  'True
+   BackColor       =   &H80000007&
+   BorderStyle     =   1  'Fixed Single
+   Caption         =   "算法环境"
+   ClientHeight    =   12825
+   ClientLeft      =   10800
+   ClientTop       =   2715
+   ClientWidth     =   14340
+   BeginProperty Font 
+      Name            =   "微软雅黑"
+      Size            =   12
+      Charset         =   134
+      Weight          =   400
+      Underline       =   0   'False
+      Italic          =   0   'False
+      Strikethrough   =   0   'False
+   EndProperty
+   KeyPreview      =   -1  'True
+   LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
+   ScaleHeight     =   12825
+   ScaleWidth      =   14340
+   Begin VB.TextBox 奖励规则定义框 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000007&
+      BeginProperty Font 
+         Name            =   "微软雅黑"
+         Size            =   10.5
+         Charset         =   134
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H80000005&
+      Height          =   2895
+      Left            =   10320
+      Locked          =   -1  'True
+      MultiLine       =   -1  'True
+      ScrollBars      =   2  'Vertical
+      TabIndex        =   10
+      Text            =   "Ui.frx":0000
+      ToolTipText     =   "在此录入顺时间轨迹串，程序将执行全字符匹配以检测是否符合奖励轨迹；""!""后为奖励生成处,""$""号后为绝对坐标奖励生成坐标"
+      Top             =   2160
+      Width           =   3855
+   End
+   Begin VB.TextBox 移动通道定义框 
+      Alignment       =   2  'Center
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000007&
+      BeginProperty Font 
+         Name            =   "微软雅黑"
+         Size            =   10.5
+         Charset         =   134
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H80000005&
+      Height          =   375
+      Left            =   10320
+      Locked          =   -1  'True
+      TabIndex        =   8
+      Text            =   "0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1 "
+      Top             =   1320
+      Width           =   3855
+   End
+   Begin VB.TextBox 视觉定义框 
+      Alignment       =   2  'Center
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000007&
+      BeginProperty Font 
+         Name            =   "微软雅黑"
+         Size            =   10.5
+         Charset         =   134
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H80000005&
+      Height          =   375
+      Left            =   10320
+      Locked          =   -1  'True
+      TabIndex        =   7
+      Text            =   "0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1 "
+      Top             =   480
+      Width           =   3855
+   End
+   Begin VB.CommandButton Command1 
+      Appearance      =   0  'Flat
+      BackColor       =   &H00808080&
+      Caption         =   "启    动"
+      BeginProperty Font 
+         Name            =   "微软雅黑"
+         Size            =   14.25
+         Charset         =   134
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   495
+      Left            =   10320
+      Style           =   1  'Graphical
+      TabIndex        =   3
+      Top             =   9600
+      Width           =   3855
+   End
+   Begin VB.Timer 文件读写时钟 
+      Enabled         =   0   'False
+      Interval        =   500
+      Left            =   13920
+      Top             =   12480
+   End
+   Begin VB.PictureBox 可视环境容器 
+      Appearance      =   0  'Flat
+      AutoRedraw      =   -1  'True
+      BackColor       =   &H80000007&
+      BeginProperty Font 
+         Name            =   "宋体"
+         Size            =   9
+         Charset         =   134
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H80000008&
+      Height          =   10000
+      Left            =   120
+      ScaleHeight     =   9975
+      ScaleWidth      =   9975
+      TabIndex        =   0
+      Top             =   120
+      Width           =   10000
+      Begin VB.PictureBox 算法环境 
+         Appearance      =   0  'Flat
+         AutoRedraw      =   -1  'True
+         BackColor       =   &H00404040&
+         BeginProperty Font 
+            Name            =   "微软雅黑"
+            Size            =   9
+            Charset         =   134
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   12000
+         Left            =   -10
+         ScaleHeight     =   11970
+         ScaleWidth      =   11970
+         TabIndex        =   1
+         Top             =   -10
+         Width           =   12000
+      End
+   End
+   Begin VB.Frame Frame1 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000001&
+      Caption         =   "载体状态"
+      ForeColor       =   &H0000C000&
+      Height          =   2295
+      Left            =   120
+      TabIndex        =   4
+      Top             =   10200
+      Width           =   14055
+      Begin VB.ListBox 载体状态列表 
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000001&
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "微软雅黑"
+            Size            =   9
+            Charset         =   134
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   1815
+         Left            =   120
+         TabIndex        =   5
+         TabStop         =   0   'False
+         Top             =   360
+         Width           =   13815
+      End
+   End
+   Begin VB.Label Label3 
+      Appearance      =   0  'Flat
+      AutoSize        =   -1  'True
+      BackColor       =   &H80000005&
+      BackStyle       =   0  'Transparent
+      Caption         =   "奖励规则定义"
+      ForeColor       =   &H8000000D&
+      Height          =   315
+      Left            =   10320
+      TabIndex        =   11
+      Top             =   1800
+      Width           =   1440
+   End
+   Begin VB.Label Label2 
+      Appearance      =   0  'Flat
+      AutoSize        =   -1  'True
+      BackColor       =   &H80000005&
+      BackStyle       =   0  'Transparent
+      Caption         =   "移动通道定义"
+      ForeColor       =   &H8000000D&
+      Height          =   315
+      Left            =   10320
+      TabIndex        =   9
+      Top             =   960
+      Width           =   1440
+   End
+   Begin VB.Label Label1 
+      Appearance      =   0  'Flat
+      AutoSize        =   -1  'True
+      BackColor       =   &H80000005&
+      BackStyle       =   0  'Transparent
+      Caption         =   "载体视觉定义"
+      ForeColor       =   &H8000000D&
+      Height          =   315
+      Left            =   10320
+      TabIndex        =   6
+      Top             =   120
+      Width           =   1440
+   End
+   Begin VB.Label 鼠标位置信息 
+      AutoSize        =   -1  'True
+      BackColor       =   &H80000007&
+      BackStyle       =   0  'Transparent
+      Caption         =   "当前鼠标位置："
+      ForeColor       =   &H00FFFFFF&
+      Height          =   315
+      Left            =   120
+      TabIndex        =   2
+      Top             =   12480
+      Width           =   1680
+   End
+   Begin VB.Menu 菜单 
+      Caption         =   "菜单"
+      Begin VB.Menu 退出 
+         Caption         =   "退出"
+      End
+   End
+   Begin VB.Menu 视图 
+      Caption         =   "视图"
+      Begin VB.Menu 打开窗体 
+         Caption         =   "打开"
+         Enabled         =   0   'False
+         Begin VB.Menu 打开算法环境参数设置界面 
+            Caption         =   "算法环境参数设置界面"
+         End
+         Begin VB.Menu 打开算法载体状态界面 
+            Caption         =   "算法载体状态界面"
+         End
+      End
+      Begin VB.Menu 绘制 
+         Caption         =   "绘制"
+         Enabled         =   0   'False
+         Begin VB.Menu 绘制空间格线 
+            Caption         =   "空间格线"
+            Checked         =   -1  'True
+         End
+      End
+   End
+End
+Attribute VB_Name = "Ui"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+
+Private Sub Command1_Click()
+    If 文件读写时钟.Enabled = False Then
+        算法环境.Height = 可视环境容器.Height
+        算法环境.Width = 可视环境容器.Width
+        算法环境.Left = 0
+        算法环境.Top = 0
+        算法环境边.X = 9
+        算法环境边.Y = 9
+        ReDim 算法载体(0)
+        算法载体(0).Name = "小白鼠"
+        算法载体(0).Health = 10
+        视觉定义框_Change
+        移动通道定义框_Change
+        奖励规则定义框_Change
+        ReDim 空间事物(算法环境边.X, 算法环境边.Y)
+        算法环境.Scale (0, 0)-(算法环境边.X, 算法环境边.Y)
+        文件读写时钟.Enabled = True
+        Command1.Caption = "暂停"
+    ElseIf 暂停开关 Then
+        暂停开关 = False
+        Command1.Caption = "暂停"
+    Else
+        暂停开关 = True
+        Command1.Caption = "继续"
+    End If
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+Select Case KeyCode
+    Case 27
+        算法环境.SetFocus
+End Select
+End Sub
+
+Private Sub Form_Load()
+算法环境边.X = 算法环境.Width
+算法环境边.Y = 算法环境.Height
+End Sub
+
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+Dim 确认退出 As String
+If UCase(InputBox("确定退出程序？", "关闭确认", "YES")) = "YES" Then
+    End
+Else
+    Cancel = 1
+End If
+End Sub
+
+Private Sub 打开算法环境参数设置界面_Click()
+SettingForm.Show
+End Sub
+
+Private Sub 打开算法载体状态界面_Click()
+StatusForm.Show
+End Sub
+
+Private Sub 绘制空间格线_Click()
+    If 绘制空间格线.Checked = False Then
+        绘制空间格线.Checked = True
+        绘制_空间格线
+    Else
+        绘制空间格线.Checked = False
+    End If
+End Sub
+
+Private Sub 奖励规则定义框_Change()
+    奖励规则编码_奖励定义 = 奖励规则定义框.Text
+End Sub
+
+Private Sub 移动通道定义框_Change()
+    算法移动通道编码_移动通道定义 = 移动通道定义框.Text
+End Sub
+Private Sub 视觉定义框_Change()
+    算法视觉编码_视觉定义 = 视觉定义框.Text
+End Sub
+
+Private Sub 奖励规则定义框_GotFocus()
+    奖励可视化开关 = True
+    If 暂停开关 And 文件读写时钟.Enabled Then
+        奖励规则定义框.Locked = False
+    Else
+        奖励规则定义框.Locked = True
+    End If
+    奖励规则定义框.ForeColor = 奖励颜色
+End Sub
+
+Private Sub 移动通道定义框_GotFocus()
+    移动可视化开关 = True
+    If 暂停开关 And 文件读写时钟.Enabled Then
+        移动通道定义框.Locked = False
+    Else
+        移动通道定义框.Locked = True
+    End If
+    移动通道定义框.BackColor = 移动颜色
+    移动通道定义框.ForeColor = RGB(75, 0, 130)
+End Sub
+
+Private Sub 视觉定义框_GotFocus()
+    视觉可视化开关 = True
+    If 暂停开关 And 文件读写时钟.Enabled Then
+        视觉定义框.Locked = False
+    Else
+        视觉定义框.Locked = True
+    End If
+    视觉定义框.BackColor = 视觉颜色
+    视觉定义框.ForeColor = RGB(75, 0, 130)
+End Sub
+
+Private Sub 奖励规则定义框_LostFocus()
+    奖励可视化开关 = False
+    奖励规则定义框.ForeColor = RGB(255, 255, 255)
+End Sub
+
+Private Sub 移动通道定义框_LostFocus()
+    移动可视化开关 = False
+    移动通道定义框.BackColor = RGB(0, 0, 0)
+    移动通道定义框.ForeColor = RGB(255, 255, 255)
+End Sub
+
+Private Sub 视觉定义框_LostFocus()
+    视觉可视化开关 = False
+    视觉定义框.BackColor = RGB(0, 0, 0)
+    视觉定义框.ForeColor = RGB(255, 255, 255)
+End Sub
+
+Private Sub 算法环境_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+On Error GoTo Er
+    空间事物(Int(X), Int(Y)) = Button
+Er:
+End Sub
+
+Private Sub 算法环境_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    鼠标位置信息.Caption = "当前鼠标位置 - X:" & Int(X) & "  Y:" & Int(Y)
+End Sub
+
+Private Sub 退出_Click()
+    End
+End Sub
+
+Private Sub 文件读写时钟_Timer()
+    算法环境更新
+End Sub
+
+

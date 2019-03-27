@@ -1,0 +1,1 @@
+ren "Ğ¡°×Êó.action-RO" "Ğ¡°×Êó.action"
