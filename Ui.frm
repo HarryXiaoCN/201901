@@ -251,23 +251,9 @@ Begin VB.Form Ui
    End
    Begin VB.Menu 视图 
       Caption         =   "视图"
-      Begin VB.Menu 打开窗体 
-         Caption         =   "打开"
-         Enabled         =   0   'False
-         Begin VB.Menu 打开算法环境参数设置界面 
-            Caption         =   "算法环境参数设置界面"
-         End
-         Begin VB.Menu 打开算法载体状态界面 
-            Caption         =   "算法载体状态界面"
-         End
-      End
-      Begin VB.Menu 绘制 
-         Caption         =   "绘制"
-         Enabled         =   0   'False
-         Begin VB.Menu 绘制空间格线 
-            Caption         =   "空间格线"
-            Checked         =   -1  'True
-         End
+      Begin VB.Menu 绘制空间格线 
+         Caption         =   "绘制空间格线"
+         Checked         =   -1  'True
       End
    End
 End
@@ -276,7 +262,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-
 Private Sub Command1_Click()
     If 文件读写时钟.Enabled = False Then
         算法环境.Height = 可视环境容器.Height
@@ -305,32 +290,24 @@ Private Sub Command1_Click()
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-Select Case KeyCode
-    Case 27
-        算法环境.SetFocus
-End Select
+    Select Case KeyCode
+        Case 27
+            算法环境.SetFocus
+    End Select
 End Sub
 
 Private Sub Form_Load()
-算法环境边.X = 算法环境.Width
-算法环境边.Y = 算法环境.Height
+    算法环境边.X = 算法环境.Width
+    算法环境边.Y = 算法环境.Height
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-Dim 确认退出 As String
-If UCase(InputBox("确定退出程序？", "关闭确认", "YES")) = "YES" Then
-    End
-Else
-    Cancel = 1
-End If
-End Sub
-
-Private Sub 打开算法环境参数设置界面_Click()
-SettingForm.Show
-End Sub
-
-Private Sub 打开算法载体状态界面_Click()
-StatusForm.Show
+    Dim 确认退出 As String
+    If UCase(InputBox("确定退出程序？", "关闭确认", "YES")) = "YES" Then
+        End
+    Else
+        Cancel = 1
+    End If
 End Sub
 
 Private Sub 绘制空间格线_Click()
