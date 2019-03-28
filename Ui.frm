@@ -35,7 +35,7 @@ Begin VB.Form Ui
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H80000005&
-      Height          =   2895
+      Height          =   7215
       Left            =   10320
       Locked          =   -1  'True
       MultiLine       =   -1  'True
@@ -256,6 +256,18 @@ Begin VB.Form Ui
          Checked         =   -1  'True
       End
    End
+   Begin VB.Menu 参数 
+      Caption         =   "参数"
+      Begin VB.Menu 载体 
+         Caption         =   "载体"
+         Begin VB.Menu 载体名字 
+            Caption         =   "名字"
+         End
+         Begin VB.Menu 载体初始生命 
+            Caption         =   "初始生命"
+         End
+      End
+   End
 End
 Attribute VB_Name = "Ui"
 Attribute VB_GlobalNameSpace = False
@@ -264,6 +276,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub Command1_Click()
     If 文件读写时钟.Enabled = False Then
+        Me.载体.Enabled = False
         算法环境.Height = 可视环境容器.Height
         算法环境.Width = 可视环境容器.Width
         算法环境.Left = 0
@@ -271,8 +284,8 @@ Private Sub Command1_Click()
         算法环境边.X = 9
         算法环境边.Y = 9
         ReDim 算法载体(0)
-        算法载体(0).Name = "小白鼠"
-        算法载体(0).Health = 10
+        If 算法载体(0).Name = "" Then 算法载体(0).Name = "小白鼠"
+        If 算法载体(0).Health = 0 Then 算法载体(0).Health = 10
         视觉定义框_Change
         移动通道定义框_Change
         奖励规则定义框_Change
@@ -381,7 +394,14 @@ End Sub
 
 Private Sub 算法环境_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
 On Error GoTo Er
-    空间事物(Int(X), Int(Y)) = Button
+    If Me.文件读写时钟.Enabled = False Then
+        If buttom = 1 Then
+            算法载体(0).Position.X = Int(X)
+            算法载体(1).Position.Y = Int(Y)
+        ElseIf Button = 2 Then
+            空间事物(Int(X), Int(Y)) = 3
+        End If
+    End If
 Er:
 End Sub
 
@@ -398,3 +418,10 @@ Private Sub 文件读写时钟_Timer()
 End Sub
 
 
+Private Sub 载体初始生命_Click()
+算法载体(0).Health = Val(InputBox("算法载体生命值：", "设置算法载体生命值", 10))
+End Sub
+
+Private Sub 载体名字_Click()
+算法载体(0).Name = InputBox("算法载体名字：", "设置算法载体名字", "小白鼠")
+End Sub

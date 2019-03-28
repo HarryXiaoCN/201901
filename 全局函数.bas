@@ -44,7 +44,13 @@ Public Function 载体状态刷新()
         行字符缓存 = "载体名" & vbTab & "生命" & vbTab & "位置" & vbTab & "存活时长" & vbTab & "轨迹"
         .载体状态列表.AddItem 行字符缓存
         For i = 0 To UBound(算法载体)
-            If 算法载体(i).Health > 0 Then 算法载体(i).SurvivalTime = 算法载体(i).SurvivalTime + Ui.文件读写时钟.Interval / 1000
+            If 算法载体(i).Health > 0 Then
+                算法载体(i).SurvivalTime = 算法载体(i).SurvivalTime + Ui.文件读写时钟.Interval / 1000
+                '寿命减少
+                算法载体(i).Health = 算法载体(i).Health - 0.1
+            ElseIf 算法载体(i).Health < 0 Then
+                算法载体(i).Health = 0
+            End If
             行字符缓存 = 算法载体(i).Name & vbTab & 算法载体(i).Health & _
             vbTab & 算法载体(i).Position.X & "," & 算法载体(i).Position.Y _
             & vbTab & 算法载体(i).SurvivalTime & vbTab & Mid(算法载体(i).Trace, 1, 18)
