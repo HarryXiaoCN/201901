@@ -39,6 +39,8 @@ Private Function 重命名文件(原文 As String, 新文 As String)
     Exit Function
 Er:
     Debug.Print "将'", 原文, "'重命名为'", 新文, "'失败！"
+    Kill 新文
+    Name 原文 As 新文
 End Function
 
 Public Function 算法信息传出(Optional 百分比血量 As Boolean)
