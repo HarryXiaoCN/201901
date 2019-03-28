@@ -29,17 +29,25 @@ Public Function 算法信息读入_子函数(算法体 As Algorithmic_Vector)
         载体移动 算法体, 移动向量
         算法体.Trace = 移动向量.X & "," & 移动向量.Y & " " & 算法体.Trace
         奖励检测 算法体, 空间事物, 算法载体
-        Name 读取路径 As 读取路径 & "-RO"
+        重命名文件 读取路径, 读取路径 & "-RO"
     End If
+End Function
+
+Private Function 重命名文件(原文 As String, 新文 As String)
+    On Error GoTo Er
+        Name 原文 As 新文
+    Exit Function
+Er:
+    Debug.Print "将'", 原文, "'重命名为'", 新文, "'失败！"
 End Function
 
 Public Function 算法信息传出(Optional 百分比血量 As Boolean)
     Dim outString As String, outPath As String, i As Long
     一级函数名 = "算法信息传出"
     For i = LBound(算法载体) To UBound(算法载体)
-        If 算法载体(i).Health > 0 Then
+        If 算法载体(i).Health >= 0 Then
             outPath = App.Path & "\" & 算法载体(i).Name & ".info"
-            outString = 算法视觉编码(空间事物, 算法载体(i).Position.X, 算法载体(i).Position.Y) & vbCrLf
+            outString = 算法视觉编码(空间事物, 算法载体(i).Position) & vbCrLf
             If 百分比血量 Then
                 outString = outString & "HP R " & 算法载体(i).Health & vbCrLf
             Else
@@ -47,10 +55,14 @@ Public Function 算法信息传出(Optional 百分比血量 As Boolean)
             End If
             outString = outString & "DIR " & 获得移动通道总数
             算法载体(i).Info = outString
-            SaveFile_All outPath, outString
+            If Dir(outPath & "-RO") = "" Then
+                SaveFile_All outPath, outString
+            Else
+                SaveFile_All outPath & "-RO", outString
+                重命名文件 outPath & "-RO", outPath
+            End If
         End If
     Next
-    
 End Function
 
 

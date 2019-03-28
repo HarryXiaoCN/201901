@@ -86,7 +86,7 @@ Begin VB.Form Ui
       Left            =   10320
       Locked          =   -1  'True
       TabIndex        =   7
-      Text            =   "0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1 "
+      Text            =   "0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1 0,2 2,2 2,0 2,-2 0,-2 -2,-2 -2,0 -2,2"
       Top             =   480
       Width           =   3855
    End
@@ -266,6 +266,9 @@ Begin VB.Form Ui
          Begin VB.Menu 载体初始生命 
             Caption         =   "初始生命"
          End
+         Begin VB.Menu 载体重置生命 
+            Caption         =   "重置生命"
+         End
       End
    End
 End
@@ -276,7 +279,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub Command1_Click()
     If 文件读写时钟.Enabled = False Then
-        Me.载体.Enabled = False
+        Me.载体名字.Enabled = False
+        Me.载体初始生命.Enabled = False
         算法环境.Height = 可视环境容器.Height
         算法环境.Width = 可视环境容器.Width
         算法环境.Left = 0
@@ -423,9 +427,21 @@ End Sub
 
 
 Private Sub 载体初始生命_Click()
-算法载体(0).Health = Val(InputBox("算法载体生命值：", "设置算法载体生命值", 10))
+    算法载体(0).Health = Val(InputBox("算法载体生命值：", "设置算法载体生命值", 10))
 End Sub
 
 Private Sub 载体名字_Click()
-算法载体(0).Name = InputBox("算法载体名字：", "设置算法载体名字", "小白鼠")
+    算法载体(0).Name = InputBox("算法载体名字：", "设置算法载体名字", "小白鼠")
+End Sub
+
+Private Sub 载体重置生命_Click()
+    Dim 命令() As String, i As Long
+    On Error GoTo Er
+    命令 = Split(InputBox("请输入需要重置生命的载体名字，并以“,”结束后加上重置后的生命值！", "重置载体生命", "小白鼠,10"), ",")
+    For i = 0 To UBound(算法载体)
+        If 算法载体(i).Name = 命令(0) Then
+            算法载体(i).Health = Val(命令(1)): Exit Sub
+        End If
+    Next
+Er:
 End Sub

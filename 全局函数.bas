@@ -3,8 +3,8 @@ Public Function 算法环境更新()
 On Error GoTo Er
     If 暂停开关 = False Then
         算法信息读入
-        算法信息传出
         空间事物刷新
+        算法信息传出
         绘制_空间格线 True
         绘制_空间事物
         If 视觉可视化开关 Then 绘制_可视化 "视觉", 算法视觉编码_视觉定义, 视觉颜色
@@ -47,11 +47,11 @@ Public Function 载体状态刷新()
             If 算法载体(i).Health > 0 Then
                 算法载体(i).SurvivalTime = 算法载体(i).SurvivalTime + Ui.文件读写时钟.Interval / 1000
                 '寿命减少
-                算法载体(i).Health = 算法载体(i).Health - 0.1
+                算法载体(i).Health = Format(算法载体(i).Health - 0.1, "0.00")
             ElseIf 算法载体(i).Health < 0 Then
                 算法载体(i).Health = 0
             End If
-            行字符缓存 = 算法载体(i).Name & vbTab & 算法载体(i).Health & _
+            行字符缓存 = 算法载体(i).Name & vbTab & Format(算法载体(i).Health, "0.0") & _
             vbTab & 算法载体(i).Position.X & "," & 算法载体(i).Position.Y _
             & vbTab & 算法载体(i).SurvivalTime & vbTab & Mid(算法载体(i).Trace, 1, 18)
             .载体状态列表.AddItem 行字符缓存
