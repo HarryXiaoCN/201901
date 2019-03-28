@@ -393,14 +393,18 @@ Private Sub 视觉定义框_LostFocus()
 End Sub
 
 Private Sub 算法环境_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    Dim 坐标 As Two_dimensional_coordinates
 On Error GoTo Er
+    坐标.X = Int(X): 坐标.Y = Int(Y)
     If Me.文件读写时钟.Enabled = False Then
         If buttom = 1 Then
-            算法载体(0).Position.X = Int(X)
-            算法载体(1).Position.Y = Int(Y)
+            算法载体(0).Position.X = 坐标.X
+            算法载体(1).Position.Y = 坐标.Y
         ElseIf Button = 2 Then
-            空间事物(Int(X), Int(Y)) = 3
+            空间事物(坐标.X, 坐标.Y) = 3
         End If
+    ElseIf 空间事物(坐标.X, 坐标.Y) = 0 Then
+        奖励增灭 坐标, True
     End If
 Er:
 End Sub
