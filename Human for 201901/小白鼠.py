@@ -2,7 +2,6 @@
 
 import time
 import 文件读写 as fro
-import 小白鼠大脑 as ai
 
 def 获得信息():
         信息帧=fro.获取信息帧()
@@ -13,7 +12,7 @@ def 获得信息():
 
 if __name__ == '__main__':
         生命=10.
-        记忆{}
+        行为帧=1
         fro.清理残留信息帧()
         while 生命>0:
                 while fro.可获取信息帧检查():
@@ -24,8 +23,14 @@ if __name__ == '__main__':
                         print('视觉：'+视觉)
                         print('生命：'+str(生命))
                         print('移动：'+str(移动))
-                        记忆=ai.信息输入(视觉,生命,移动,记忆)
-                        print(fro.写入行为帧(记忆['行动'])+'\n')
+                        
+                        行为帧=int(input('输入移动通道：'))
+                        if 行为帧>0 and 行为帧<=移动:
+                            print(fro.写入行为帧(行为帧)+'\n')
+                        else:
+                            行为帧=int(input('输入符合范围的移动通道，否则将跳过本次行动：'))
+                            print(fro.写入行为帧(行为帧)+'\n')
+                        
                 time.sleep(0.45)
                 
         print('——————载体死亡！——————')

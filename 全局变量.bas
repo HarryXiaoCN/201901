@@ -40,9 +40,25 @@ Public 视觉可视化开关 As Boolean, 移动可视化开关 As Boolean, 奖励可视化开关 As B
 Public 一级函数名 As String, 二级函数名 As String
 
 Sub Main()
-算法环境单位长度 = 1
-ReDim 奖励集(0)
-Ui.Show
-'SettingForm.Show
-'StatusForm.Show
+
+    算法环境单位长度 = 1
+    
+    ReDim 奖励集(0)
+    
+    Ui.Show
+    
+    With Ui
+    
+        .算法环境.Height = .可视环境容器.Height
+        .算法环境.Width = .可视环境容器.Width
+        .算法环境.Left = 0
+        .算法环境.Top = 0
+        
+        算法环境边.X = 9
+        算法环境边.Y = 9
+        ReDim 空间事物(算法环境边.X, 算法环境边.Y)
+        .算法环境.Scale (0, 0)-(算法环境边.X, 算法环境边.Y)
+        
+    End With
+    
 End Sub

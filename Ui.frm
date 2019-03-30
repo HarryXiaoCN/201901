@@ -64,7 +64,7 @@ Begin VB.Form Ui
       Left            =   10320
       Locked          =   -1  'True
       TabIndex        =   8
-      Text            =   "0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1 "
+      Text            =   "0,0 0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1 "
       Top             =   1320
       Width           =   3855
    End
@@ -86,7 +86,7 @@ Begin VB.Form Ui
       Left            =   10320
       Locked          =   -1  'True
       TabIndex        =   7
-      Text            =   "0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1 0,2 2,2 2,0 2,-2 0,-2 -2,-2 -2,0 -2,2"
+      Text            =   "0,0 0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1 0,2 2,2 2,0 2,-2 0,-2 -2,-2 -2,0 -2,2"
       Top             =   480
       Width           =   3855
    End
@@ -192,6 +192,19 @@ Begin VB.Form Ui
          Width           =   13815
       End
    End
+   Begin VB.Label Label4 
+      Appearance      =   0  'Flat
+      AutoSize        =   -1  'True
+      BackColor       =   &H80000005&
+      BackStyle       =   0  'Transparent
+      Caption         =   "隐藏"
+      ForeColor       =   &H0000C000&
+      Height          =   315
+      Left            =   13680
+      TabIndex        =   12
+      Top             =   120
+      Width           =   480
+   End
    Begin VB.Label Label3 
       Appearance      =   0  'Flat
       AutoSize        =   -1  'True
@@ -270,6 +283,27 @@ Begin VB.Form Ui
             Caption         =   "重置生命"
          End
       End
+      Begin VB.Menu 定义 
+         Caption         =   "定义"
+         Begin VB.Menu 打乱 
+            Caption         =   "打乱"
+            Begin VB.Menu 打乱视觉定义 
+               Caption         =   "视觉定义"
+            End
+            Begin VB.Menu 打乱移动定义 
+               Caption         =   "移动定义"
+            End
+         End
+         Begin VB.Menu 生成 
+            Caption         =   "生成"
+            Begin VB.Menu 生成奖励规则 
+               Caption         =   "奖励规则"
+            End
+         End
+      End
+      Begin VB.Menu 隐藏或显示界面参数 
+         Caption         =   "隐藏界面参数"
+      End
    End
 End
 Attribute VB_Name = "Ui"
@@ -279,22 +313,15 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub Command1_Click()
     If 文件读写时钟.Enabled = False Then
+        Me.定义.Enabled = False
         Me.载体名字.Enabled = False
         Me.载体初始生命.Enabled = False
-        算法环境.Height = 可视环境容器.Height
-        算法环境.Width = 可视环境容器.Width
-        算法环境.Left = 0
-        算法环境.Top = 0
-        算法环境边.X = 9
-        算法环境边.Y = 9
         ReDim 算法载体(0)
         If 算法载体(0).Name = "" Then 算法载体(0).Name = "小白鼠"
         If 算法载体(0).Health = 0 Then 算法载体(0).Health = 10
         视觉定义框_Change
         移动通道定义框_Change
         奖励规则定义框_Change
-        ReDim 空间事物(算法环境边.X, 算法环境边.Y)
-        算法环境.Scale (0, 0)-(算法环境边.X, 算法环境边.Y)
         文件读写时钟.Enabled = True
         Command1.Caption = "暂停"
     ElseIf 暂停开关 Then
@@ -327,6 +354,18 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     End If
 End Sub
 
+Private Sub Label4_Click()
+    隐藏或显示界面参数_Click
+End Sub
+
+Private Sub 打乱视觉定义_Click()
+    视觉定义框.Text = 随机组合视动定义(视觉定义框.Text)
+End Sub
+
+Private Sub 打乱移动定义_Click()
+    移动通道定义框.Text = 随机组合视动定义(移动通道定义框.Text)
+End Sub
+
 Private Sub 绘制空间格线_Click()
     If 绘制空间格线.Checked = False Then
         绘制空间格线.Checked = True
@@ -338,6 +377,27 @@ End Sub
 
 Private Sub 奖励规则定义框_Change()
     奖励规则编码_奖励定义 = 奖励规则定义框.Text
+End Sub
+
+Private Sub 生成奖励规则_Click()
+    Dim CMD As String, 函参() As String, 新规则奖励 As String, 随机条数 As Long, 随机绝对判断数 As Long
+    Dim 最小步长 As Long, 最大步长 As Long, 最小生成条数 As Long, 最大生成条数 As Long, i As Long
+'    On Error GoTo Er
+    CMD = InputBox("指定规则最小步长,最大步长,最小生成条数,最大生成条数", "随机生成奖励规则", "3,10,2,5")
+    函参 = Split(CMD, ",")
+    最小步长 = Val(函参(0))
+    最大步长 = Val(函参(1))
+    最小生成条数 = Val(函参(2))
+    最大生成条数 = Val(函参(3))
+    随机条数 = 获取随机整数(最小生成条数, 最大生成条数)
+    For i = 1 To 随机条数
+        随机绝对判断数 = 获取随机整数(0, 1)
+        新规则奖励 = 新规则奖励 & 随机生成奖励规则(最小步长, 最大步长, 移动通道定义框.Text, 随机绝对判断数) & vbCrLf
+    Next
+    奖励规则定义框.Text = Mid(新规则奖励, 1, Len(新规则奖励) - 1)
+    Exit Sub
+Er:
+    MsgBox "参数错误，生成失败！" & vbCrLf & Err.Description, 16, "随机生成奖励规则"
 End Sub
 
 Private Sub 移动通道定义框_Change()
@@ -425,6 +485,22 @@ Private Sub 文件读写时钟_Timer()
     算法环境更新
 End Sub
 
+
+Private Sub 隐藏或显示界面参数_Click()
+    If Label4.Caption = "隐藏" Then
+        视觉定义框.Visible = False
+        移动通道定义框.Visible = False
+        奖励规则定义框.Visible = False
+        隐藏或显示界面参数.Caption = "显示界面参数"
+        Label4.Caption = "显示"
+    Else
+        视觉定义框.Visible = True
+        移动通道定义框.Visible = True
+        奖励规则定义框.Visible = True
+        隐藏或显示界面参数.Caption = "隐藏界面参数"
+        Label4.Caption = "隐藏"
+    End If
+End Sub
 
 Private Sub 载体初始生命_Click()
     算法载体(0).Health = Val(InputBox("算法载体生命值：", "设置算法载体生命值", 10))
