@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
+<!-- eric6 tasks file for project 小白鼠 -->
+<!-- Saved: 2019-03-31, 00:30:48 -->
+<Tasks version="6.0">
+  <ProjectScanFilter></ProjectScanFilter>
+  <Task priority="1" completed="False" type="1" uid="{812738f2-3a9f-4b0e-87ca-9d5a13ed54b8}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2019-03-31, 00:10:27</Created>
+    <Resource>
+      <Filename>temp.py</Filename>
+      <Linenumber>35</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="1" uid="{d4cef42b-5786-4ca7-a225-8ef54147e627}">
+    <Summary>TODO: not implemented yet</Summary>
+    <Description></Description>
+    <Created>2019-03-31, 00:30:32</Created>
+    <Resource>
+      <Filename>Ui_Event_小白鼠.py</Filename>
+      <Linenumber>38</Linenumber>
+    </Resource>
+  </Task>
+</Tasks>
