@@ -329,6 +329,7 @@ Private Sub Command1_Click()
         视觉定义框_Change
         移动通道定义框_Change
         奖励规则定义框_Change
+        If 史书路径 <> "" Then SaveFile_Append 史书路径, 算法视觉编码_视觉定义 & vbCrLf & 算法移动通道编码_移动通道定义 & vbCrLf
         文件读写时钟.Enabled = True
         Command1.Caption = "暂停"
     ElseIf 暂停开关 Then
