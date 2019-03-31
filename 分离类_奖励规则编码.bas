@@ -1,6 +1,6 @@
 Attribute VB_Name = "分离类_奖励规则编码"
 Public 奖励规则编码_奖励定义 As String
-Public Const 奖励规则编码_单位奖励量 = 1
+Public Const 奖励规则编码_单位奖励量 = 100
 
 Public Function 奖励增灭(坐标 As Two_dimensional_coordinates, 增加 As Boolean)
     Dim i As Long

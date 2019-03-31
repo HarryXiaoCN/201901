@@ -23,15 +23,15 @@ End Function
 Private Function 字符串随机排序(词集字符串 As String, 断符 As String) As String
     Dim i As Long, 随机数 As Long, 词集缓存() As String, 词集() As String
     词集 = Split(词集字符串, 断符)
-    已采集点 = "\"
     词集缓存 = 词集
     For i = 0 To UBound(词集) - 1
         随机数 = 获取随机整数(0, UBound(词集缓存))
         字符串随机排序 = 字符串随机排序 & 词集缓存(随机数) & 断符
         词集缓存 = 字符串数组删减(词集缓存, 随机数)
     Next
-    字符串随机排序 = 字符串随机排序 & 词集缓存(0) & 断符
-    字符串随机排序 = Mid(字符串随机排序, 1, Len(字符串随机排序) - 1)
+    字符串随机排序 = 字符串随机排序 & 词集缓存(0)
+    字符串随机排序 = Replace(字符串随机排序, "  ", " ")
+    '字符串随机排序 = Mid(字符串随机排序, 1, Len(字符串随机排序) - 1)
 End Function
 
 Private Function 字符串数组删减(数组() As String, 序号)

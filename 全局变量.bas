@@ -61,7 +61,7 @@ Sub Main()
         
         ReDim 算法载体(0)
         算法载体(0).Name = "小白鼠"
-        算法载体(0).Health = 10
+        算法载体(0).Health = 1000
         算法载体(0).Position.X = 获取随机整数(LBound(空间事物, 1), UBound(空间事物, 1) - 1)
         算法载体(0).Position.Y = 获取随机整数(LBound(空间事物, 2), UBound(空间事物, 2) - 1)
     End With

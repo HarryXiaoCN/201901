@@ -64,7 +64,7 @@ Begin VB.Form Ui
       Left            =   10320
       Locked          =   -1  'True
       TabIndex        =   8
-      Text            =   "0,0 0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1 "
+      Text            =   "0,0 0,1 1,1 1,0 1,-1 0,-1 -1,-1 -1,0 -1,1"
       Top             =   1320
       Width           =   3855
    End
