@@ -13,7 +13,7 @@ Public Function Ëæ»úÉú³É½±Àø¹æÔò(×îÐ¡²½³¤ As Long, ×î´ó²½³¤ As Long, ByVal ÒÆ¶¯Í
     Else
         Ëæ»úÉú³É½±Àø¹æÔò = Ëæ»úÉú³É½±Àø¹æÔò & "!"
     End If
-    Ëæ»úÉú³É½±Àø¹æÔò = Ëæ»úÉú³É½±Àø¹æÔò & »ñÈ¡Ëæ»úÕûÊý(LBound(¿Õ¼äÊÂÎï, 1), UBound(¿Õ¼äÊÂÎï, 1)) & "," & »ñÈ¡Ëæ»úÕûÊý(LBound(¿Õ¼äÊÂÎï, 2), UBound(¿Õ¼äÊÂÎï, 2))
+    Ëæ»úÉú³É½±Àø¹æÔò = Ëæ»úÉú³É½±Àø¹æÔò & »ñÈ¡Ëæ»úÕûÊý(LBound(¿Õ¼äÊÂÎï, 1), UBound(¿Õ¼äÊÂÎï, 1) - 1) & "," & »ñÈ¡Ëæ»úÕûÊý(LBound(¿Õ¼äÊÂÎï, 2), UBound(¿Õ¼äÊÂÎï, 2) - 1)
 End Function
 
 Public Function Ëæ»ú×éºÏÊÓ¶¯¶¨Òå(ËùÓÐÍ¨µÀ As String) As String

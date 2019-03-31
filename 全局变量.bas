@@ -34,7 +34,7 @@ End Type
 Public Const 视觉颜色 = 14381203, 移动颜色 = 16748574, 奖励颜色 = 2003199
 Public Const 算法载体索引 = 1, 奖励索引 = 2
 Public 算法环境边 As Two_dimensional_coordinates
-Public 算法环境单位长度 As Double
+Public 算法环境单位长度 As Double, 史书路径 As String
 Public 空间事物() As Long, 算法载体() As Algorithmic_Vector, 奖励集() As Reward
 Public 视觉可视化开关 As Boolean, 移动可视化开关 As Boolean, 奖励可视化开关 As Boolean, 暂停开关 As Boolean
 Public 一级函数名 As String, 二级函数名 As String

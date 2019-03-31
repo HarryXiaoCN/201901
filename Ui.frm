@@ -202,6 +202,7 @@ Begin VB.Form Ui
       Height          =   315
       Left            =   13680
       TabIndex        =   12
+      ToolTipText     =   "点击将隐藏/显示所有本程序可观测到的算法环境部分"
       Top             =   120
       Width           =   480
    End
@@ -284,7 +285,7 @@ Begin VB.Form Ui
          End
       End
       Begin VB.Menu 定义 
-         Caption         =   "定义"
+         Caption         =   "环境"
          Begin VB.Menu 打乱 
             Caption         =   "打乱"
             Begin VB.Menu 打乱视觉定义 
@@ -299,10 +300,19 @@ Begin VB.Form Ui
             Begin VB.Menu 生成奖励规则 
                Caption         =   "奖励规则"
             End
+            Begin VB.Menu 生成随机奖励 
+               Caption         =   "随机奖励"
+            End
          End
       End
       Begin VB.Menu 隐藏或显示界面参数 
          Caption         =   "隐藏界面参数"
+      End
+   End
+   Begin VB.Menu 史书 
+      Caption         =   "史书"
+      Begin VB.Menu 启用史书 
+         Caption         =   "启用史书"
       End
    End
 End
@@ -319,6 +329,8 @@ Private Sub Command1_Click()
         ReDim 算法载体(0)
         If 算法载体(0).Name = "" Then 算法载体(0).Name = "小白鼠"
         If 算法载体(0).Health = 0 Then 算法载体(0).Health = 10
+        算法载体(0).Position.X = 获取随机整数(LBound(空间事物, 1), UBound(空间事物, 1) - 1)
+        算法载体(0).Position.Y = 获取随机整数(LBound(空间事物, 2), UBound(空间事物, 2) - 1)
         视觉定义框_Change
         移动通道定义框_Change
         奖励规则定义框_Change
@@ -375,6 +387,17 @@ Private Sub 绘制空间格线_Click()
     End If
 End Sub
 
+Private Sub 启用史书_Click()
+    史书路径 = App.Path & "\" & 算法载体(0).Name & Format(Now, "yyyy年mm月dd日 hh时mm分ss秒启 ")
+    启用史书.Checked = True
+    启用史书.Enabled = False
+    Exit Sub
+Er:
+    MsgBox "启用史书失败！" & vbCrLf & Err.Description, 16, "启用史书"
+    启用史书.Checked = False
+    启用史书.Enabled = True
+End Sub
+
 Private Sub 奖励规则定义框_Change()
     奖励规则编码_奖励定义 = 奖励规则定义框.Text
 End Sub
@@ -398,6 +421,21 @@ Private Sub 生成奖励规则_Click()
     Exit Sub
 Er:
     MsgBox "参数错误，生成失败！" & vbCrLf & Err.Description, 16, "随机生成奖励规则"
+End Sub
+
+Private Sub 生成随机奖励_Click()
+    Dim CMD As String, CMDTmp() As String, 随机总数 As Long, i As Long, 坐标 As Two_dimensional_coordinates
+    On Error GoTo Er
+    CMD = InputBox("输入生成奖励块的总个数区间：", "生成随机奖励", "3,9")
+    CMDTmp = Split(CMD, ",")
+    随机总数 = 获取随机整数(Val(CMDTmp(0)), Val(CMDTmp(1)))
+    For i = 1 To 随机总数
+        坐标.X = 获取随机整数(LBound(空间事物, 1), UBound(空间事物, 1) - 1)
+        坐标.Y = 获取随机整数(LBound(空间事物, 2), UBound(空间事物, 2) - 1)
+        奖励增灭 坐标, True
+        Debug.Print 坐标.X, 坐标.Y
+    Next
+Er:
 End Sub
 
 Private Sub 移动通道定义框_Change()
@@ -491,12 +529,16 @@ Private Sub 隐藏或显示界面参数_Click()
         视觉定义框.Visible = False
         移动通道定义框.Visible = False
         奖励规则定义框.Visible = False
+        算法环境.Visible = False
+        载体状态列表.Visible = False
         隐藏或显示界面参数.Caption = "显示界面参数"
         Label4.Caption = "显示"
     Else
         视觉定义框.Visible = True
         移动通道定义框.Visible = True
         奖励规则定义框.Visible = True
+        算法环境.Visible = True
+        载体状态列表.Visible = True
         隐藏或显示界面参数.Caption = "隐藏界面参数"
         Label4.Caption = "隐藏"
     End If

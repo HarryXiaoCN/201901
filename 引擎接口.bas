@@ -30,6 +30,7 @@ Public Function 算法信息读入_子函数(算法体 As Algorithmic_Vector)
         算法体.Trace = 移动向量.X & "," & 移动向量.Y & " " & 算法体.Trace
         奖励检测 算法体, 空间事物, 算法载体
         重命名文件 读取路径, 读取路径 & "-RO"
+        If 史书路径 <> "" Then SaveFile_Append 史书路径, 算法体.Action
     End If
 End Function
 
@@ -63,6 +64,7 @@ Public Function 算法信息传出(Optional 百分比血量 As Boolean)
                 SaveFile_All outPath & "-RO", outString
                 重命名文件 outPath & "-RO", outPath
             End If
+            If 史书路径 <> "" Then SaveFile_Append 史书路径, outString
         End If
     Next
 End Function
@@ -88,6 +90,14 @@ Public Function SaveFile_All(fPath As String, outString As String)
     Dim fN As Integer
     fN = FreeFile
     Open fPath For Output As #fN
+        Print #fN, outString
+    Close #fN
+End Function
+
+Public Function SaveFile_Append(fPath As String, outString As String)
+    Dim fN As Integer
+    fN = FreeFile
+    Open fPath For Append As #fN
         Print #fN, outString
     Close #fN
 End Function
