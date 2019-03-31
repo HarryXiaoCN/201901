@@ -383,7 +383,7 @@ Private Sub 绘制空间格线_Click()
 End Sub
 
 Private Sub 启用史书_Click()
-    史书路径 = App.Path & "\" & 算法载体(0).Name & Format(Now, "yyyy年mm月dd日hh时mm分ss秒启.历史")
+    史书路径 = App.Path & "\" & 算法载体(0).Name & Format(Now, "yyyy年mm月dd日hh时mm分ss秒启.史书")
     启用史书.Checked = True
     启用史书.Enabled = False
     Exit Sub
