@@ -326,11 +326,6 @@ Private Sub Command1_Click()
         Me.定义.Enabled = False
         Me.载体名字.Enabled = False
         Me.载体初始生命.Enabled = False
-        ReDim 算法载体(0)
-        If 算法载体(0).Name = "" Then 算法载体(0).Name = "小白鼠"
-        If 算法载体(0).Health = 0 Then 算法载体(0).Health = 10
-        算法载体(0).Position.X = 获取随机整数(LBound(空间事物, 1), UBound(空间事物, 1) - 1)
-        算法载体(0).Position.Y = 获取随机整数(LBound(空间事物, 2), UBound(空间事物, 2) - 1)
         视觉定义框_Change
         移动通道定义框_Change
         奖励规则定义框_Change
