@@ -297,6 +297,14 @@ Begin VB.Form Ui
          End
          Begin VB.Menu 生成 
             Caption         =   "生成"
+            Begin VB.Menu 生成视觉定义 
+               Caption         =   "视觉定义"
+               Enabled         =   0   'False
+            End
+            Begin VB.Menu 生成移动定义 
+               Caption         =   "移动定义"
+               Enabled         =   0   'False
+            End
             Begin VB.Menu 生成奖励规则 
                Caption         =   "奖励规则"
             End
